@@ -40,7 +40,7 @@ delete obj.name
  *      语法：对象["属性名"] = 属性值
  *  读取时也需要采用这种方式
  */
-obj["name"] = 18
+obj["name"] = 'zhiou'
 obj["123"] = 18
 console.log(obj);
 console.log(obj["123"]);
@@ -50,3 +50,8 @@ console.log(obj["123"]);
  */
 const a = 123;
 console.log(obj[a]);
+// 也可以添加函数
+obj.sayName = function() {
+  console.log(obj.name);
+}
+obj.sayName()
