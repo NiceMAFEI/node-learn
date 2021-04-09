@@ -6,7 +6,23 @@
   * "exclude"  不需要编译的文件，有默认值，一般不设置
   */
   "include": ["./src/**/*"],
-  "exclude": [
-    "./src/hello/**/*"
-  ]
+  // "exclude": [
+  //   "./src/hello/**/*"
+  // ]
+  /**
+  * compilerOptions 编译器选项
+  */
+  "compilerOptions": {
+    // target 用来指定ts被编译为ES的版本
+    "target": "ESNext",
+    // module 模块化解决方案
+    "module": "amd",
+    // lib 用来指定项目要使用的库
+    // "lib": ["DOM"]
+    // outDir 用来指定编译后文件所在的目录
+    "outDir": "./dist",
+    // outFile 输出的文件， 将代码合并为一个文件
+    // 设值outFile后，所有全局作用域中的代码会合并为一个文件
+    // "outFile": "./dist/app.js"
+  }
 }
