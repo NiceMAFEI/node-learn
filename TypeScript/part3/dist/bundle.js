@@ -1,0 +1,1 @@
+(()=>{"use strict";console.log("Hello tsWebpack"),console.log(30)})();
