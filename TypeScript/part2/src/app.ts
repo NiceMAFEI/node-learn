@@ -5,7 +5,7 @@
   enum Person {
     name = 1,
     age = 2,
-    gender = 3,
+    gender = 4,
   }
 //   console.log(hi);
 }
