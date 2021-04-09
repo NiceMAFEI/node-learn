@@ -1,1 +1,1 @@
-(()=>{"use strict";console.log("Hello tsWebpack"),console.log(30),console.log("hello"),console.log("你好")})();
+!function(){"use strict";console.log("Hello tsWebpack"),console.log(30),console.log("hello"),console.log("你好");var o={name:"孙悟空",age:33};console.log(o),o.age=18;var l=function(o,l){return o+l};l(110,20),console.log(l(110,20))}();
