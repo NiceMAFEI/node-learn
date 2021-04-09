@@ -1,1 +1,1 @@
-(()=>{"use strict";console.log("Hello tsWebpack"),console.log(30)})();
+(()=>{"use strict";console.log("Hello tsWebpack"),console.log(30),console.log("hello"),console.log("你好")})();
