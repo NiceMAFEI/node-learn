@@ -19,6 +19,8 @@ module.exports = {
     environment: {
       // 取消打包js的箭头函数
       arrowFunction: false,
+      // const
+      const: false
     },
   },
 
