@@ -8,6 +8,7 @@ class Snake {
   bodies: HTMLCollection;
   //   🐍
   element: HTMLElement;
+  private _isLive: boolean = true;
   constructor() {
     //   获取🐍头
     this.head = document.querySelector("#snake>div") as HTMLElement;
@@ -24,13 +25,33 @@ class Snake {
   get Y() {
     return this.head.offsetTop;
   }
+  /**
+   * 获取🐍是否还活着
+   */
+  get isLive(): boolean {
+    return this._isLive;
+  }
+  /**
+   * 建立🐍的坐标， 并且判断是否结束游戏
+   */
   set X(value: number) {
-    console.log(value);
-
-    this.head.style.left = value + "px";
+    if (this.X === value) return;
+    if (value < 0 || value > 290) {
+      throw new Error("小🐍死去了");
+    } else {
+      this.head.style.left = value + "px";
+    }
   }
   set Y(value: number) {
-    this.head.style.top = value + "px";
+    if (this.Y === value) return;
+    if (value < 0 || value > 290) {
+      throw new Error("小🐍死去了");
+    } else {
+      this.head.style.top = value + "px";
+    }
+  }
+  set isLive(boolean: boolean) {
+    this._isLive = boolean;
   }
   //   添加身体
   addBody() {

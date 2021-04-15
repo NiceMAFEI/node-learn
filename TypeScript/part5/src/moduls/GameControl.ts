@@ -14,8 +14,6 @@ class GameControl {
   scorePanel: ScorePanel;
   //   🐍的移动方向， 按键的方向
   direction: string = "Right";
-  // 游戏是否结束
-  isLive: boolean = true;
   // 构造函数
   constructor() {
     this.snake = new Snake();
@@ -49,7 +47,6 @@ class GameControl {
     // 获取🐍现在的坐标
     let x = this.snake.X;
     let y = this.snake.Y;
-    console.log("初始值：", x, y);
 
     // 根据按键方向，修改 x, y 值
     switch (this.direction) {
@@ -74,13 +71,34 @@ class GameControl {
         // 向右
         break;
     }
-    console.log("改变后的值：", x, y);
-
+    // 检查🐍是否吃到食物
+    this.checkEat(x, y);
     // 改变snake的X和Y
-    this.snake.X = x;
-    this.snake.Y = y;
-    this.isLive &&
+    try {
+      this.snake.X = x;
+      this.snake.Y = y;
+    } catch (e) {
+      alert(e + "GAME OVER!");
+      this.snake.isLive = false;
+    }
+    this.snake.isLive &&
       setTimeout(this.run.bind(this), 300 - (this.scorePanel.level - 1) * 30);
+  }
+  /**
+   *
+   * @param X 🐍的x坐标
+   * @param Y 🐍的y坐标
+   * @returns Boolean
+   */
+  checkEat(X: number, Y: number) {
+    if (X === this.food.X && Y === this.food.Y) {
+      // 食物位置改变
+      this.food.change();
+      // 分数增加
+      this.scorePanel.addScore();
+      // 🐍增加
+      this.snake.addBody();
+    }
   }
 }
 
