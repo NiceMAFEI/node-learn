@@ -9,8 +9,11 @@ class Snake {
   //   🐍
   element: HTMLElement;
   constructor() {
+    //   获取🐍头
     this.head = document.querySelector("#snake >　div") as HTMLElement;
+    // 获取🐍身体
     this.bodies = document.getElementById("snake")!.getElementsByTagName("div");
+    // 获取🐍
     this.element = document.getElementById("snake")!;
   }
 
@@ -33,3 +36,5 @@ addBody() {
     this.element.insertAdjacentHTML('beforeend', "<div></div>");
 }
 }
+
+export default Snake
