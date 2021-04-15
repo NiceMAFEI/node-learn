@@ -39,6 +39,7 @@ class Snake {
     if (value < 0 || value > 290) {
       throw new Error("小🐍死去了");
     } else {
+      this.moveBody();
       this.head.style.left = value + "px";
     }
   }
@@ -47,6 +48,7 @@ class Snake {
     if (value < 0 || value > 290) {
       throw new Error("小🐍死去了");
     } else {
+      this.moveBody();
       this.head.style.top = value + "px";
     }
   }
@@ -57,6 +59,19 @@ class Snake {
   addBody() {
     // 将div添加到element的最后
     this.element.insertAdjacentHTML("beforeend", "<div></div>");
+  }
+  // 🐍身体移动
+  moveBody() {
+    // 遍历获取所有的身体
+    for (let i = this.bodies.length - 1; i > 0; i--) {
+      // 获取前边身体的位置
+      let X = (this.bodies[i - 1] as HTMLElement).offsetLeft;
+      let Y = (this.bodies[i - 1] as HTMLElement).offsetTop;
+
+      // 设置
+      (this.bodies[i] as HTMLElement).style.left = X + "px";
+      (this.bodies[i] as HTMLElement).style.top = Y + "px";
+    }
   }
 }
 
