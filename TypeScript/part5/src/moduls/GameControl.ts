@@ -18,7 +18,7 @@ class GameControl {
   constructor() {
     this.snake = new Snake();
     this.food = new Food();
-    this.scorePanel = new ScorePanel();
+    this.scorePanel = new ScorePanel(10, 2);
   }
   // 游戏初始化， 调用  游戏开始
   init() {
@@ -33,6 +33,8 @@ class GameControl {
   }
   // 键盘按下的相应函数
   keyDownHandler = (event: KeyboardEvent) => {
+    console.log(event.key);
+    
     //   检查是否合法(上下左右正确按键)
     this.direction = event.key;
   };

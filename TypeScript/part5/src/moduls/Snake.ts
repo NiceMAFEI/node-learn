@@ -38,19 +38,35 @@ class Snake {
     if (this.X === value) return;
     if (value < 0 || value > 290) {
       throw new Error("小🐍死去了");
-    } else {
+    }
+    if (this.bodies[1] && (this.bodies[1] as HTMLElement).offsetLeft === value){
+        if(value > this.X) { // 向右走
+          value = this.X - 10; // 回退
+        }else { // 向左走
+          value = this.X + 10; // 回退
+        }
+    } 
       this.moveBody();
       this.head.style.left = value + "px";
-    }
+      this.checkHeadBody()
+    
   }
   set Y(value: number) {
     if (this.Y === value) return;
     if (value < 0 || value > 290) {
       throw new Error("小🐍死去了");
-    } else {
+    }else if(this.bodies[1] && (this.bodies[1] as HTMLElement).offsetTop === value) {
+      if(value > this.Y) { // 向下走
+        value = this.Y - 10
+      } else {
+        value = this.Y + 10
+      }
+      
+    }
       this.moveBody();
       this.head.style.top = value + "px";
-    }
+      this.checkHeadBody()
+    
   }
   set isLive(boolean: boolean) {
     this._isLive = boolean;
@@ -71,6 +87,18 @@ class Snake {
       // 设置
       (this.bodies[i] as HTMLElement).style.left = X + "px";
       (this.bodies[i] as HTMLElement).style.top = Y + "px";
+    }
+  }
+  /**
+   * 检查🐍头是否撞到身体的方法
+   */
+  checkHeadBody() {
+    // 获取所有的身体，检查其是否和舌头的坐标发生重叠
+    for(let i = 1; i < this.bodies.length; i++) {
+      let bd = this.bodies[i] as HTMLElement
+      if(this.X === bd.offsetLeft && this.Y === bd.offsetTop) {
+        throw new Error('你吃了你自己！')
+      }
     }
   }
 }
