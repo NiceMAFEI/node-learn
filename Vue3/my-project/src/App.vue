@@ -2,11 +2,14 @@
   <h2></h2>
 </template>
 
-<script lang="ts">
+<script>
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: 'App'
+  name: "App",
+  setup() {
+    return {};
+  },
 });
 </script>
 
