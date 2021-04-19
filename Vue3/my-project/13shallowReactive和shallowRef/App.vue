@@ -8,7 +8,7 @@
   <button @click="update">更新数据</button>
 </template>
 
-<script>
+<script lang='ts'>
 import {
   defineComponent,
   reactive,
