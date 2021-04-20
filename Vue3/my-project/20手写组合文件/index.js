@@ -57,3 +57,94 @@ function reactive(target) {
   }
   return target;
 }
+
+/**
+ * shallowReadonly  与  readonly
+ */
+const readonlyHandler = {
+  get(target, prop) {
+    const reslut = Reflect.get(target, prop);
+    console.log("拦截到读取数据", target, prop);
+    return reslut;
+  },
+  set(target, prop, value) {
+    console.warn("只能读取");
+    return true;
+  },
+  deleteProperty(target, prop) {
+    console.warn("只能读取");
+    return true;
+  },
+};
+
+/**
+ * shallowReadonly
+ */
+function shallowReadonly(target) {
+  if (target && typeof target === "object") {
+    return new Proxy(target, readonlyHandler);
+  }
+  return target;
+}
+
+/**
+ * readonly
+ */
+function readonly(target) {
+  if (target && typeof target === "object") {
+    if (Array.isArray(target)) {
+      target.forEach((item, index) => {
+        target[index] = readonly(item);
+      });
+    } else {
+      Object.keys(target).forEach((key) => {
+        target[key] = readonly(target[key]);
+      });
+    }
+    return new Proxy(target, readonlyHandler);
+  }
+  return target;
+}
+
+/**
+ * shallowRef 和 ref
+ */
+
+/**
+ * shallowRef
+ */
+
+function shallowRef(target) {
+  return {
+    // 保存target数据
+    _value: target,
+    get value() {
+      console.log("劫持到了读取数据");
+      return this._value;
+    },
+    set value(val) {
+      console.log("劫持到了修改数据");
+      this._value = value;
+    },
+  };
+}
+
+/**
+ * ref
+ */
+
+function ref(target) {
+    target = reactive(target)
+    return {
+    // 保存target数据
+    _value: target,
+    get value() {
+      console.log("劫持到了读取数据");
+      return this._value;
+    },
+    set value(val) {
+      console.log("劫持到了修改数据");
+      this._value = value;
+    },
+  };
+}
