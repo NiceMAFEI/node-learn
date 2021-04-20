@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="./index.js">
+    </script>
+    <script>
+        const proxyUser1 = shallowReactive({
+            name: 'hahaha',
+            cars: {
+                color: 'red'
+            }
+        })
+        // proxyUser1.name = '小红';
+        // proxyUser1.name += '=='
+        console.log(proxyUser1.cars);
+        // delete proxyUser1.name
+        // delete proxyUser1.cars.color
+        // console.log(proxyUser1);
+        const proxyUser2 = reactive({
+            name: '小周',
+            cars: {
+                name: 'hahaha',
+                color: 'blue'
+            }
+        })
+        // proxyUser2.name = 'xixiix'
+        // console.log(proxyUser2);
+    </script>
+</body>
+
+</html>
