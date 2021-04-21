@@ -22,12 +22,15 @@ export default defineComponent({
   props: {
     todos: {
       type: Array,
+      required: true,
     },
     deleteTodo: {
       type: Function,
+      required: true,
     },
     updateTodo: {
       type: Function,
+      required: true,
     },
   },
   setup() {

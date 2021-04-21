@@ -1,9 +1,9 @@
 <template>
   <div class="todo-container">
     <div class="todo-wrap">
-      <Header :addTodo="addTodo"/>
-      <List :todos="todos" :deleteTodo="deleteTodo" :updateTodo="updateTodo"/>
-      <Footer />
+      <Header :addTodo="addTodo" />
+      <List :todos="todos" :deleteTodo="deleteTodo" :updateTodo="updateTodo" />
+      <Footer :updateCompleted="updateCompleted" :todos="todos"/>
     </div>
   </div>
 </template>
@@ -56,21 +56,29 @@ export default defineComponent({
      * @param { Todo }todo; 要删除的数据
      */
     const deleteTodo = (value: number) => {
-      state.todos.splice(value, 1)
-    }
+      state.todos.splice(value, 1);
+    };
     /**
      * 更新数据的方法
      */
     const updateTodo = (obj: Todo, val: boolean) => {
-      obj.isCompleted = val
+      obj.isCompleted = val;
       console.log(obj);
-      
-    }
+    };
+    /**
+     * 集体修改isCompleted属性
+     */
+    const updateCompleted = (val: boolean) => {
+      state.todos.forEach((item) => {
+        item.isCompleted = val;
+      });
+    };
     return {
       ...toRefs(state),
       addTodo,
       deleteTodo,
-      updateTodo
+      updateTodo,
+      updateCompleted
     };
   },
 });
