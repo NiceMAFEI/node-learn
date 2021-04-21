@@ -1,18 +1,35 @@
 <template>
   <ul class="todo-main">
-    <Item v-for="(item, index) in todos" :key="index" :todo="item"></Item>
+    <Item
+      v-for="(item, index) in todos"
+      :key="index"
+      :todo="item"
+      :index="index"
+      :deleteTodo="deleteTodo"
+      :updateTodo="updateTodo"
+    ></Item>
   </ul>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import Item from '../Item/index.vue'
+import Item from "../Item/index.vue";
 export default defineComponent({
   name: "List",
   components: {
-    Item
+    Item,
   },
-  props: ['todos'],
+  props: {
+    todos: {
+      type: Array,
+    },
+    deleteTodo: {
+      type: Function,
+    },
+    updateTodo: {
+      type: Function,
+    },
+  },
   setup() {
     return {};
   },

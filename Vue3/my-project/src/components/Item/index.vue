@@ -9,26 +9,45 @@
         <input type="checkbox" v-model="todo.isCompleted">
         会报错，显示props的值被修改了。
        -->
-      <input type="checkbox" :checked="todo.isCompleted" />
+      <input type="checkbox" v-model="isCompleted" />
       <span>{{ todo.title }}</span>
     </label>
-    <button class="btn btn-danger" v-show="isShow">删除</button>
+    <button class="btn btn-danger" v-show="isShow" @click="deleteValue">
+      删除
+    </button>
   </li>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { computed, defineComponent, ref } from "vue";
 import { Todo } from "../../types/todo";
 
 export default defineComponent({
   name: "Item",
   props: {
-    todo: Object as () => Todo,
+    todo: {
+      type: Object as () => Todo,
+      required: true
+    },
+    index: Number,
+    deleteTodo: {
+      type: Function,
+      required: true,
+    },
+    updateTodo: {
+      type: Function,
+      required: true
+    }
   },
-  setup() {
+  setup(props) {
     const bgColor = ref("white");
     const color = ref("black");
     const isShow = ref(false);
+    const val = ref(props.index);
+    /**
+     * 鼠标事件回调
+     * @param { Boolean }flag, true: 鼠标进入； false：鼠标移出
+     */
     const mouseHandler = (flag: boolean) => {
       if (flag) {
         bgColor.value = "pink";
@@ -40,11 +59,26 @@ export default defineComponent({
         isShow.value = false;
       }
     };
+    const deleteValue = () => {
+      if (window.confirm("确定要删除吗？")) {
+        props.deleteTodo(val.value);
+      }
+    };
+    const isCompleted = computed({
+      get() {
+        return props.todo.isCompleted
+      },
+      set(val) {
+        props.updateTodo(props.todo, val)
+      }
+    })
     return {
       mouseHandler,
       bgColor,
       color,
       isShow,
+      deleteValue,
+      isCompleted
     };
   },
 });
