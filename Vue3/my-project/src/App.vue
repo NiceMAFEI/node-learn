@@ -3,16 +3,21 @@
     <div class="todo-wrap">
       <Header :addTodo="addTodo" />
       <List :todos="todos" :deleteTodo="deleteTodo" :updateTodo="updateTodo" />
-      <Footer :updateCompleted="updateCompleted" :todos="todos" :clearTodos="clearTodos"/>
+      <Footer
+        :updateCompleted="updateCompleted"
+        :todos="todos"
+        :clearTodos="clearTodos"
+      />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from "vue";
+import { defineComponent, onMounted, reactive, toRefs, watch } from "vue";
 import Header from "./components/Header/index.vue";
 import List from "./components/List/index.vue";
 import Footer from "./components/Footer/index.vue";
+import { saveTodos, readTodos } from "../src/utils/localStorageUtils";
 // 映入接口
 import { Todo } from "../src/types/todo";
 export default defineComponent({
@@ -25,23 +30,12 @@ export default defineComponent({
   // 数据应该用数组存储
   setup() {
     const state = reactive<{ todos: Todo[] }>({
-      todos: [
-        {
-          id: 1,
-          title: "奔驰",
-          isCompleted: true,
-        },
-        {
-          id: 2,
-          title: "奥迪",
-          isCompleted: false,
-        },
-        {
-          id: 3,
-          title: "宝马",
-          isCompleted: false,
-        },
-      ],
+      todos: [],
+    });
+    onMounted(() => {
+      setTimeout(() => {
+        state.todos = readTodos();
+      }, 1000);
     });
 
     /**
@@ -49,7 +43,7 @@ export default defineComponent({
      * @param { Todo }todo; 要添加的数据
      */
     const addTodo = (todo: Todo) => {
-      state.todos.unshift(todo);
+      state.todos.push(todo);
     };
     /**
      * 删除数据的方法
@@ -77,15 +71,20 @@ export default defineComponent({
      * 清楚已完成的数据
      */
     const clearTodos = () => {
-      state.todos = state.todos.filter(item => !item.isCompleted)
-    }
+      state.todos = state.todos.filter((item) => !item.isCompleted);
+    };
+
+    /**
+     * 监听todos数据
+     */
+    watch(() => state.todos, saveTodos, { deep: true });
     return {
       ...toRefs(state),
       addTodo,
       deleteTodo,
       updateTodo,
       updateCompleted,
-      clearTodos
+      clearTodos,
     };
   },
 });

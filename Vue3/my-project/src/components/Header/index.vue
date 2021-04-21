@@ -25,6 +25,7 @@ export default defineComponent({
         isCompleted: false
       }
       props.addTodo(todo);
+      title.value = ''
     }
     return {
       title,
