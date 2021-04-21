@@ -1,8 +1,8 @@
 <template>
   <div class="todo-container">
     <div class="todo-wrap">
-      <Header />
-      <List :todos="todos"/>
+      <Header :addTodo="addTodo"/>
+      <List :todos="todos" />
       <Footer />
     </div>
   </div>
@@ -14,7 +14,7 @@ import Header from "./components/Header/index.vue";
 import List from "./components/List/index.vue";
 import Footer from "./components/Footer/index.vue";
 // 映入接口
-import { Todo } from '../src/types/todo'
+import { Todo } from "../src/types/todo";
 export default defineComponent({
   name: "App",
   components: {
@@ -24,7 +24,7 @@ export default defineComponent({
   },
   // 数据应该用数组存储
   setup() {
-    const state = reactive<{todos: Todo []}>({
+    const state = reactive<{ todos: Todo[] }>({
       todos: [
         {
           id: 1,
@@ -43,8 +43,14 @@ export default defineComponent({
         },
       ],
     });
+
+    // 添加数据的方法
+    const addTodo = (todo: Todo) => {
+      state.todos.unshift(todo);
+    };
     return {
-      ...toRefs(state)
+      ...toRefs(state),
+      addTodo,
     };
   },
 });
