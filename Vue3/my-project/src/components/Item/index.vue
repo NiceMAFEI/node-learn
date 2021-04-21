@@ -1,5 +1,9 @@
 <template>
-  <li>
+  <li
+    @mouseenter="mouseHandler(true)"
+    @mouseleave="mouseHandler(false)"
+    :style="{ backgroundColor: bgColor, color: color }"
+  >
     <label>
       <!-- 
         <input type="checkbox" v-model="todo.isCompleted">
@@ -8,12 +12,12 @@
       <input type="checkbox" :checked="todo.isCompleted" />
       <span>{{ todo.title }}</span>
     </label>
-    <button class="btn btn-danger" style="display: none">删除</button>
+    <button class="btn btn-danger" v-show="isShow">删除</button>
   </li>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 import { Todo } from "../../types/todo";
 
 export default defineComponent({
@@ -22,7 +26,26 @@ export default defineComponent({
     todo: Object as () => Todo,
   },
   setup() {
-    return {};
+    const bgColor = ref("white");
+    const color = ref("black");
+    const isShow = ref(false);
+    const mouseHandler = (flag: boolean) => {
+      if (flag) {
+        bgColor.value = "pink";
+        color.value = "green";
+        isShow.value = true;
+      } else {
+        bgColor.value = "white";
+        color.value = "black";
+        isShow.value = false;
+      }
+    };
+    return {
+      mouseHandler,
+      bgColor,
+      color,
+      isShow,
+    };
   },
 });
 </script>
@@ -34,6 +57,7 @@ li {
   line-height: 36px;
   padding: 0 5px;
   border-bottom: 1px;
+  cursor: pointer;
 }
 li label {
   float: left;
@@ -48,7 +72,6 @@ li label li input {
 
 li button {
   float: right;
-  display: none;
   margin-top: 3px;
 }
 
