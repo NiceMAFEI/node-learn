@@ -3,7 +3,7 @@
     <div class="todo-wrap">
       <Header :addTodo="addTodo" />
       <List :todos="todos" :deleteTodo="deleteTodo" :updateTodo="updateTodo" />
-      <Footer :updateCompleted="updateCompleted" :todos="todos"/>
+      <Footer :updateCompleted="updateCompleted" :todos="todos" :clearTodos="clearTodos"/>
     </div>
   </div>
 </template>
@@ -73,12 +73,19 @@ export default defineComponent({
         item.isCompleted = val;
       });
     };
+    /**
+     * 清楚已完成的数据
+     */
+    const clearTodos = () => {
+      state.todos = state.todos.filter(item => !item.isCompleted)
+    }
     return {
       ...toRefs(state),
       addTodo,
       deleteTodo,
       updateTodo,
-      updateCompleted
+      updateCompleted,
+      clearTodos
     };
   },
 });

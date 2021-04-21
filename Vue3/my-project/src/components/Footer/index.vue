@@ -6,7 +6,7 @@
     <span>
       <span>已完成{{ count }}</span> / 全部{{ todos.length }}
     </span>
-    <button class="btn btn-danger">清除已完成任务</button>
+    <button class="btn btn-danger" @click="clearTodos">清除已完成任务</button>
   </div>
 </template>
 
@@ -24,6 +24,10 @@ export default defineComponent({
       type: Object as () => Todo[],
       required: true,
     },
+    clearTodos: {
+      type: Function,
+      required: true
+    }
   },
   setup(props) {
     const count = computed(() => {
