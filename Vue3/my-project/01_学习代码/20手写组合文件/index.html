@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="./index.js">
+    </script>
+    <script>
+        const proxyUser1 = shallowReactive({
+            name: 'hahaha',
+            cars: {
+                color: 'red'
+            }
+        })
+        // proxyUser1.name = '小红';
+        // proxyUser1.name += '=='
+        // console.log(proxyUser1.cars);
+        // delete proxyUser1.name
+        // delete proxyUser1.cars.color
+        // console.log(proxyUser1);
+        const proxyUser2 = reactive({
+            name: '小周',
+            cars: {
+                name: 'hahaha',
+                color: 'blue'
+            }
+        })
+        // proxyUser2.name = 'xixiix'
+        // console.log(proxyUser2);
+
+
+        //=============shallowReadonly========
+        const proxyUser3 = shallowReadonly({
+            name: '小米',
+            cars: ['1', '2']
+        })
+        // proxyUser3.name += '=='
+        // delete proxyUser3.nmae
+        // 只读但是拦截不了深度的修改
+        // proxyUser3.cars[0] = '3'
+        // delete proxyUser3.cars[0]
+        const proxyUser4 = readonly({
+            name: '小明',
+            cars: [1, 2, 3, 4, 5]
+        })
+        // console.log(proxyUser4.name);
+        // delete proxyUser4.cars[0]
+        // proxyUser4.cars[0] = 10
+
+        //=========shallowRef
+        const ref1 = shallowRef({
+            name: '小妹',
+            cars: {
+                color: 'blue'
+            }
+        })
+        // console.log(proxyUser5);
+        // console.log(ref1.value.name);
+        // ref1.value.cars = '=='
+        const ref2 = ref({
+            name: 'xiaoxo',
+            cars: {
+                color: 12
+            }
+        })
+        // ref2.value.cars.color = '1'
+    </script>
+</body>
+
+</html>
