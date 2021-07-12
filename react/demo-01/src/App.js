@@ -80,20 +80,29 @@ class App extends React.Component {
             </Button>
           </Form.Item>
         </Form>
-        {this.state.messageBoard.map((item, index) => {
-          return (
-            <Card
-              className="box-card"
-              style={{ width: "400px", margin: "6px auto" }}
-              key={index}
-            >
-              <div className="text item">评论人：{item.name}</div>
-              <div className="text item" style={{ marginTop: "12px" }}>
-                评论内容：{item.value}
-              </div>
-            </Card>
-          );
-        })}
+        {this.state.messageBoard.length === 0 ? (
+          <Card
+            className="box-card"
+            style={{ width: "400px", margin: "6px auto" }}
+          >
+            <div className="text item">暂无数据~</div>
+          </Card>
+        ) : (
+          this.state.messageBoard.map((item, index) => {
+            return (
+              <Card
+                className="box-card"
+                style={{ width: "400px", margin: "6px auto" }}
+                key={index}
+              >
+                <div className="text item">评论人：{item.name}</div>
+                <div className="text item" style={{ marginTop: "12px" }}>
+                  评论内容：{item.value}
+                </div>
+              </Card>
+            );
+          })
+        )}
       </div>
     );
   }
