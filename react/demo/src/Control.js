@@ -1,10 +1,11 @@
+// 受控组件
 import React from "react";
 
 class Control extends React.Component {
   constructor() {
     super();
     this.state = {
-      tet: "",
+      text: "",
       content: "",
       city: "上海",
       cityOptions: [
@@ -14,47 +15,41 @@ class Control extends React.Component {
       ],
       isChecked: false,
     };
-    this.changeTet = this.changeTet.bind(this);
   }
-  changeTet(e) {
+  /**
+   * @name 混合处理函数
+   */
+  minxFunction(e) {
+    const target = e.target;
+    const value = target.type === "checkbox" ? target.checked : target.value;
+    const name = target.name
     this.setState({
-      tet: e.target.value,
-    });
-  }
-  changeContent(e) {
-    this.setState({
-      content: e.target.value,
-    });
-  }
-  changeSelect(e) {
-    this.setState({
-      city: e.target.value,
-    });
-  }
-  changeCheckBox(e) {
-    this.setState({
-      isChecked: e.target.checked,
-    });
+      [name]: value
+    })
   }
   render() {
     return (
       <div>
         {/* 文本框 */}
         <input
-          onChange={this.changeTet}
-          value={this.state.tet}
+          onChange={(this.minxFunction = this.minxFunction.bind(this))}
+          value={this.state.text}
+          type="text"
+          name="text"
           placeholder="请输入文本信息"
         ></input>
         {/* 富文本框 */}
         <textarea
           value={this.state.content}
+          name="content"
           placeholder="请输入文本内容"
-          onChange={(this.changeContent = this.changeContent.bind(this))}
+          onChange={(this.minxFunction = this.minxFunction.bind(this))}
         ></textarea>
         {/* 下拉框 */}
         <select
           value={this.state.city}
-          onChange={(this.changeSelect = this.changeSelect.bind(this))}
+          name="city"
+          onChange={(this.minxFunction = this.minxFunction.bind(this))}
         >
           {this.state.cityOptions.map((item) => {
             return (
@@ -67,8 +62,9 @@ class Control extends React.Component {
         {/* 复选框 */}
         <input
           type="checkbox"
+          name="isChecked"
           checked={this.state.isChecked}
-          onChange={(this.changeCheckBox = this.changeCheckBox.bind(this))}
+          onChange={(this.minxFunction = this.minxFunction.bind(this))}
         ></input>
       </div>
     );

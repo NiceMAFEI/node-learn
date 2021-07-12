@@ -1,7 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 // import Hello from './Hello'
-import Control from './Control'
+// import Control from './Control'
+import UnComtrol from './UnControl'
 // /**
 //  * @name 函数组件
 //  */
@@ -29,4 +30,4 @@ import Control from './Control'
 // }
 
 // 渲染组件
-ReactDOM.render(<Control />, document.getElementById("root"));
+ReactDOM.render(<UnComtrol />, document.getElementById("root"));
