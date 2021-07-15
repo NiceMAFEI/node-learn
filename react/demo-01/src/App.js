@@ -1,6 +1,8 @@
 import React from "react";
 import "./App.css";
 import { Input, Form, Button, Card } from "element-react";
+
+
 class App extends React.Component {
   constructor() {
     super();
@@ -29,9 +31,7 @@ class App extends React.Component {
    * @name 发布留言
    */
   submit() {
-    console.log("====================================");
     console.log(this.formRef.current);
-    console.log("====================================");
     const arr = [...this.state.messageBoard];
     arr.push({
       name: this.state.form.peopleName,
@@ -62,6 +62,7 @@ class App extends React.Component {
             <Input
               type="text"
               value={this.state.form.peopleName}
+              placeholder="请输入评论人"
               onChange={this.valueChange.bind(this, "peopleName")}
             />
           </Form.Item>
