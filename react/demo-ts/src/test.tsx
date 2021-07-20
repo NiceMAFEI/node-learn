@@ -1,19 +1,30 @@
 import React from "react";
-interface FatherInterface {
-  name: String;
-  age: Number;
+import Chlid from "./child";
+interface Iprops {
+  name: string;
+  age: number;
 }
-interface StateInterface {
-  name: String,
-  age: Number
+interface Istate {
+  name: string;
+  age: number;
 }
-class Test extends React.Component<FatherInterface,StateInterface> {
-  constructor(props: FatherInterface) {
-    super(props);  
+class Test extends React.Component<Iprops, Istate> {
+  constructor(props: Iprops) {
+    super(props);
     this.state = {
       name: this.props.name,
       age: this.props.age,
     };
+  }
+  parentAgeAdd(val: number) {
+    this.setState({
+      age: val,
+    });
+  }
+  parentShowName(val: string) {
+    this.setState({
+      name: val,
+    });
   }
   render(): React.ReactNode {
     // const {name,age} = this.props
@@ -27,6 +38,12 @@ class Test extends React.Component<FatherInterface,StateInterface> {
           <span>年龄：</span>
           <span>{this.state.age}</span>
         </div>
+        父组件：{this.state.name}
+        <Chlid
+          age={12}
+          showFn={this.parentShowName.bind(this)}
+          addFn={this.parentAgeAdd.bind(this)}
+        />
       </div>
     );
   }
