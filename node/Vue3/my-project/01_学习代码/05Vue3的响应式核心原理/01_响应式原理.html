@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const user = {
+      name: 'DIO',
+      age: 100,
+      wife: {
+        name: '普奇',
+        age: 20
+      }
+    }
+    const proxyUser = new Proxy(user, {
+      get(target, prop) {
+        console.log('get调用');
+        return Reflect.get(target, prop)
+      },
+      set(target, prop, value) {
+        console.log('set调用');
+        return Reflect.set(target, prop, value)
+      },
+      deleteProperty(target, prop) {
+        console.log('删除调用！');
+        return Reflect.deleteProperty(target, prop)
+      }
+    })
+    console.log(proxyUser.name);
+    // 代理对象 修改 代理对象的值
+    proxyUser.name = 'JOJO'
+    console.log(proxyUser.name);
+    console.log(user.name);
+    // 代理对象  添加 代理对象属性值
+    // 依旧调用set()
+    proxyUser.gender = '男'
+    // 删除代理对象的属性值
+    delete proxyUser.name
+    console.log(proxyUser);
+    // 更新目标对象中的某个属性对象中的属性值
+    proxyUser.wife.name = 'HAHAHHA'
+    console.log(proxyUser);
+
+
+  </script>
+</body>
+</html>

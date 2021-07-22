@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    /**
+     * 所有实例共享一个类方法
+     */
+
+    // 将方法定义在全局
+    function Person(name) {
+        this.name = name;
+        this.sayName = fun
+    }
+    // 注意， 外部可以访问
+    function fun() {
+        console.log(this.name);
+    }
+
+    const per1 = new Person('孙悟空')
+    console.log(per1.sayName());
+
+    /**
+     * 原型 prototype
+     *  
+     *  我们所创建的每一个函数， 解析器都会向函数中添加一个属性prototype
+     * 
+     *  如果函数作为普通函数调用prototype没有任何作用
+     *  当函数通过构造函数调用时， 它所创建的对象中都会有一个隐含的属性
+     *      指向该构造函数的原型对象
+     *  原型对象就相当于一个公共的区域，所有同一个类的实例都可以访问到这个原型对象
+     *      可以将对象中共有的内容，统一设置到原型对象中
+     *  当我们访问对象的一个属性或方法时描绘在自身寻找，有就是用，没有就通过原型链寻找，一直找到Null
+     */
+    function MyClass() {
+
+    }
+    var myClass = new MyClass() // 构造函数创建对象
+
+    Person.prototype.age = 18 // 原型添加age
+    console.log(MyClass.prototype == Person.prototype);
+    console.log(Person.prototype);
+    console.log(per1.__proto__);
+    console.log(per1.__proto__ == Person.prototype);
+
+    // 向MyClass的原型中添加方法
+    MyClass.prototype.sayName = function() {
+        console.log(this.name);
+    }
+    MyClass.prototype.name = 'myclass'
+    myClass.sayName()
+    // 可以将实例共有的属性和方法添加到类的原型中
+</script>
+
+</html>

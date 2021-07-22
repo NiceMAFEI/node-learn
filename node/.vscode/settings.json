@@ -1,0 +1,4 @@
+{
+    "javascript.format.insertSpaceAfterConstructor": true,
+    "javascript.validate.enable": false
+}
